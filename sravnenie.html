@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сравнение требований к пилотам: ФАП-147 vs ФАП-236</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            color: #1a2a3a;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0b2b44;
+            border-left: 6px solid #1a73e8;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #3a5a7a;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            padding-left: 26px;
+        }
+        .badge {
+            display: inline-block;
+            background: #e8f0fe;
+            color: #1a5bb5;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 40px 0 20px 0;
+            color: #0b2b44;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #dde7f3;
+        }
+        .section-title small {
+            font-weight: 400;
+            font-size: 1rem;
+            color: #3a5a7a;
+            margin-left: 15px;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            margin: 20px 0 30px 0;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            min-width: 700px;
+        }
+        th {
+            background: #f0f5fb;
+            color: #0b2b44;
+            font-weight: 600;
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 2px solid #cbd7e6;
+            white-space: nowrap;
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e6edf5;
+            vertical-align: top;
+            background-color: #ffffff;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .col-criteria {
+            font-weight: 600;
+            color: #0b2b44;
+            background-color: #fafcff;
+            width: 18%;
+        }
+        .col-old {
+            background-color: #fefaf5;
+            width: 26%;
+        }
+        .col-new {
+            background-color: #f5faf8;
+            width: 26%;
+        }
+        .col-change {
+            background-color: #f5f2ff;
+            width: 30%;
+        }
+        .highlight-change {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .tag-new {
+            display: inline-block;
+            background: #d4edda;
+            color: #155724;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-right: 6px;
+        }
+        .tag-change {
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-right: 6px;
+        }
+        .tag-same {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #2d3748;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-right: 6px;
+        }
+        .note {
+            background: #f8faff;
+            padding: 20px 25px;
+            border-radius: 16px;
+            border-left: 5px solid #1a73e8;
+            margin-top: 30px;
+        }
+        .note h3 {
+            margin-bottom: 8px;
+            color: #0b2b44;
+        }
+        .note ul {
+            padding-left: 22px;
+            margin-top: 8px;
+        }
+        .note li {
+            margin-bottom: 6px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #5a7a9a;
+            text-align: center;
+            border-top: 1px solid #dde7f3;
+            padding-top: 20px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .container { padding: 16px; }
+            h1 { font-size: 1.6rem; }
+            .section-title { font-size: 1.4rem; }
+            td, th { padding: 10px 12px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>✈️ Сравнение требований к пилотам</h1>
+    <div class="subtitle">
+        ФАП-147 (ред. 2014) vs. ФАП-236 (вступает в силу 01.09.2026) — частный и коммерческий пилот
+        <span class="badge">Актуально на 2026 год</span>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 1: КОЛИЧЕСТВЕННЫЕ ТРЕБОВАНИЯ (налёт, возраст, образование) -->
+    <!-- ============================================================ -->
+    <h2 class="section-title">📊 Количественные требования <small>возраст, налёт, образование</small></h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-criteria">Критерий</th>
+                    <th class="col-old">ФАП-147 (PPL)</th>
+                    <th class="col-old">ФАП-147 (CPL)</th>
+                    <th class="col-new">ФАП-236 (PPL)</th>
+                    <th class="col-new">ФАП-236 (CPL)</th>
+                    <th class="col-change">Характер изменений</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-criteria">Минимальный возраст</td>
+                    <td class="col-old">Старше 18 лет</td>
+                    <td class="col-old">Старше 18 лет</td>
+                    <td class="col-new">Старше 18 лет</td>
+                    <td class="col-new">Старше 18 лет</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Образование</td>
+                    <td class="col-old">—</td>
+                    <td class="col-old">—</td>
+                    <td class="col-new">—</td>
+                    <td class="col-new"><span class="tag-new">НОВОЕ</span> <strong>Обязательное</strong> СПО или ВО в области подготовки лётных экипажей</td>
+                    <td class="col-change"><span class="highlight-change">▲ Ужесточение для CPL</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Медицинское заключение</td>
+                    <td class="col-old">1-й или 2-й класс</td>
+                    <td class="col-old">1-й класс</td>
+                    <td class="col-new">1-й или 2-й класс</td>
+                    <td class="col-new">1-й класс</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Общий налет (самолёт)</td>
+                    <td class="col-old">40 ч (до 5 ч на тренажёре)</td>
+                    <td class="col-old">200 ч (или 150 ч по программе, до 10 ч на тренажёре)</td>
+                    <td class="col-new">40 ч (до 5 ч на тренажёре)</td>
+                    <td class="col-new">200 ч (или 150 ч по программе, до 10 ч на тренажёре)</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Налет в качестве КВС</td>
+                    <td class="col-old">10 ч самостоятельного</td>
+                    <td class="col-old">100 ч (или 70 ч по программе)</td>
+                    <td class="col-new">10 ч самостоятельного</td>
+                    <td class="col-new">100 ч (или 70 ч по программе)</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Маршрутный налет</td>
+                    <td class="col-old">1 полёт ≥ 270 км</td>
+                    <td class="col-old">20 ч, включая полёт ≥ 540 км</td>
+                    <td class="col-new">1 полёт ≥ 270 км</td>
+                    <td class="col-new">20 ч, включая полёт ≥ 540 км</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Налет по приборам</td>
+                    <td class="col-old">≥ 1 ч</td>
+                    <td class="col-old">≥ 10 ч (до 5 ч на тренажёре)</td>
+                    <td class="col-new">≥ 1 ч</td>
+                    <td class="col-new">≥ 10 ч (до 5 ч на тренажёре)</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Ночной налет</td>
+                    <td class="col-old">3 ч + 5 взл./пос.</td>
+                    <td class="col-old">5 ч + 5 взл./пос.</td>
+                    <td class="col-new">3 ч + 5 взл./пос.</td>
+                    <td class="col-new">5 ч + 5 взл./пос.</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Право на отметку "инструктор"</td>
+                    <td class="col-old">Да (по отдельным требованиям)</td>
+                    <td class="col-old">Да</td>
+                    <td class="col-new"><span class="tag-change">ИЗМЕНЕНО</span> <strong>Нет</strong></td>
+                    <td class="col-new">Да (при соблюдении единых требований)</td>
+                    <td class="col-change"><span class="highlight-change">▼ PPL лишён права быть инструктором</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">Предоставляемые права</td>
+                    <td class="col-old">Только некоммерческие полёты</td>
+                    <td class="col-old">Коммерческие перевозки, КВС на ВС с 1 пилотом, второй пилот</td>
+                    <td class="col-new">Только некоммерческие полёты</td>
+                    <td class="col-new">Коммерческие перевозки <strong>и авиаработы</strong></td>
+                    <td class="col-change"><span class="tag-change">Уточнено</span> для CPL добавлены авиаработы</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 2: ПРАКТИЧЕСКИЕ НАВЫКИ (сравнение по двум документам)    -->
+    <!-- ============================================================ -->
+    <h2 class="section-title">🛩️ Практические навыки <small>сравнение содержания (ФАП-147 vs ФАП-236)</small></h2>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-criteria">Область навыков</th>
+                    <th class="col-old">ФАП-147 (PPL)</th>
+                    <th class="col-new">ФАП-236 (PPL)</th>
+                    <th class="col-old">ФАП-147 (CPL)</th>
+                    <th class="col-new">ФАП-236 (CPL)</th>
+                    <th class="col-change">Характер изменений</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-criteria">1. Сваливание и критические скорости</td>
+                    <td class="col-old">Предотвращение штопора, распознавание сваливания и выход</td>
+                    <td class="col-new"><span class="tag-change">Уточнено</span> + <strong>полёт на критически низких скоростях</strong></td>
+                    <td class="col-old">Предотвращение штопора, распознавание сваливания и выход</td>
+                    <td class="col-new"><span class="tag-change">Уточнено</span> + <strong>полёт на критически низких скоростях</strong></td>
+                    <td class="col-change"><span class="tag-same">Косметическое</span> добавлено уточнение</td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">2. Пилотирование по приборам</td>
+                    <td class="col-old">Полёт по приборам + разворот 180°</td>
+                    <td class="col-new">Полёт по приборам + разворот 180°</td>
+                    <td class="col-old">Вывод из необычных положений по приборам</td>
+                    <td class="col-new">Вывод из необычных положений по приборам</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">3. Асимметричная тяга (многодвигательные)</td>
+                    <td class="col-old">—</td>
+                    <td class="col-new">—</td>
+                    <td class="col-old">Обязательный навык (имитация отказа двигателя)</td>
+                    <td class="col-new">Обязательный навык (имитация отказа двигателя)</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">4. Маршрутная навигация</td>
+                    <td class="col-old">По ориентирам, счислению, радиосредствам</td>
+                    <td class="col-new">По ориентирам, счислению, радиосредствам</td>
+                    <td class="col-old">+ <strong>правила изменения маршрута</strong></td>
+                    <td class="col-new">+ <strong>правила изменения маршрута</strong></td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">5. Аварийные ситуации</td>
+                    <td class="col-old">Имитация отказов <strong>бортового оборудования</strong></td>
+                    <td class="col-new">Имитация отказов <strong>бортового оборудования</strong></td>
+                    <td class="col-old">+ имитация отказа <strong>силовой установки</strong></td>
+                    <td class="col-new">+ имитация отказа <strong>силовой установки</strong></td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">6. Взлёты и посадки</td>
+                    <td class="col-old">Короткий разбег, ограниченные размеры</td>
+                    <td class="col-new"><span class="tag-change">Уточнено</span> <strong>с укороченной ВПП</strong></td>
+                    <td class="col-old">Короткий разбег <strong>с учётом препятствий</strong></td>
+                    <td class="col-new"><span class="tag-change">Уточнено</span> <strong>при соблюдении ограничений высоты пролёта препятствий</strong></td>
+                    <td class="col-change"><span class="tag-same">Косметическое</span> уточнение формулировок</td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">7. Взаимодействие с ОВД</td>
+                    <td class="col-old">Стандартная фразеология</td>
+                    <td class="col-new">Стандартная фразеология</td>
+                    <td class="col-old">Стандартная фразеология</td>
+                    <td class="col-new">Стандартная фразеология</td>
+                    <td class="col-change"><span class="tag-same">Без изменений</span></td>
+                </tr>
+                <tr>
+                    <td class="col-criteria">8. Взаимодействие в экипаже (CRM)</td>
+                    <td class="col-old">—</td>
+                    <td class="col-new">—</td>
+                    <td class="col-old">— (подразумевается)</td>
+                    <td class="col-new"><span class="tag-change">Уточнено</span> прописано в разделе линейного пилота</td>
+                    <td class="col-change"><span class="tag-same">Косметическое</span> структурное уточнение</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК 3: ИТОГОВЫЕ ВЫВОДЫ (как в ответе)                       -->
+    <!-- ============================================================ -->
+    <div class="note">
+        <h3>📌 Итоговые выводы по изменениям</h3>
+        <ul>
+            <li><strong>🔹 Количественные требования (налёт, возраст, медзаключение) не изменились</strong> — все цифры остались прежними как для PPL, так и для CPL.</li>
+            <li><strong>🔸 Главное нововведение — обязательное профильное образование для коммерческого пилота</strong> (СПО или ВО в области подготовки лётных экипажей). Это существенно повышает входной барьер.</li>
+            <li><strong>🔹 Частный пилот лишён права на квалификационную отметку "инструктор"</strong> — теперь это прерогатива только коммерческих пилотов.</li>
+            <li><strong>🔸 Содержание практических навыков осталось неизменным</strong> — все требования к манёврам и процедурам идентичны. Изменения носят исключительно терминологический и структурный характер (уточнены формулировки).</li>
+            <li><strong>🔹 Различие между PPL и CPL в навыках сохранилось</strong> — коммерческий пилот по-прежнему обязан отрабатывать более сложные элементы (асимметричная тяга, отказ двигателя, вывод из сложных пространственных положений).</li>
+        </ul>
+        <p style="margin-top: 12px; font-weight: 500;">📅 Новые правила вступают в силу <strong>с 1 сентября 2026 года</strong> и действуют до 1 сентября 2032 года.</p>
+    </div>
+
+    <div class="footer">
+        Источник: Приказ Минтранса № 236 от 26.05.2026 (ФАП-236) vs. Приказ Минтранса № 147 от 12.09.2008 (ред. 2014) <br>
+        Сравнительный анализ подготовлен на основе предоставленных материалов.
+    </div>
+
+</div>
+</body>
+</html>
